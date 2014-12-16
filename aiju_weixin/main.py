@@ -54,6 +54,7 @@ def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
     print "return text msg to user"
     resp_create_time = int(time.time())
     resp_msg = u"I am AIJU. You just sent: {0} to me.".format(usr_msg)
+    print resp_msg
     return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time,resp_msg)
 
 def parse_msg(rawmsgstr):
