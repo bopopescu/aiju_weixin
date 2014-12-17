@@ -10,7 +10,8 @@ APP_ROOT = '/'
 APP_TOKEN = 'Aiju_NewYork_NewYork_2014'
 
 RETURN_TEXT_RESPONSE = """
-                     <xml><ToUserName><![CDATA[{0}]]></ToUserName>
+                     <xml>
+                     <ToUserName><![CDATA[{0}]]></ToUserName>
                      <FromUserName><![CDATA[{1}]]></FromUserName>
                      <CreateTime>{2}</CreateTime>
                      <MsgType><![CDATA[text]]></MsgType>
@@ -37,16 +38,10 @@ def weixin_msg():
     if verification(request):
         data = request.data
         msg = parse_msg(data)
-        #print data
-        #print
-        #print type(msg)
+
         usr_msg =  msg["Content"]
         usr_open_id = msg["FromUserName"]
         app_id = msg["ToUserName"]
-
-        #print usr_msg
-        #print usr_open_id
-        #print app_id
 
     return return_text_msg_to_wechat(app_id, usr_open_id, usr_msg)
 
