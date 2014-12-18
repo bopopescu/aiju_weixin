@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, request
 import hashlib, time
 import xml.etree.ElementTree as ET
+
+import wechatconst
+
+from flask import Flask, request
+
 
 app = Flask(__name__)
 
@@ -43,7 +47,21 @@ def weixin_msg():
         usr_open_id = msg["FromUserName"]
         app_id = msg["ToUserName"]
 
-    return return_text_msg_to_wechat(app_id, usr_open_id, usr_msg)
+        msg_type = msg["MsgType"]
+
+        msg_template = wechatconst.WECHAT_TEMPLATES[msg_type]
+        
+        if msg_type == 'text':
+            return return_text_msg_to_wechat(app_id, usr_open_id, usr_msg)
+        elif msg_type == 'image':
+            media_id = msg["MediaId"]
+            pic_url = msg["PicUrl"]
+            return return_image_msg_to_wechat()
+
+
+def return_image_msg_to_wechat(app_id, usr_open_id, msg_template, pic_url, media_id):
+    resp_create_time = int(time.time())
+    return msg_template.format(to_usr=app_id, from_user=usr_open_id, pic_url=pic_url, media_id=media_id)
 
 def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
     print "return text msg to user"

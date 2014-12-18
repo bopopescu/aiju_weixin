@@ -11,26 +11,34 @@ GENERAL_TEMPLATE = """
                    </xml>
                    """
 TEXT_TEMPLATE = GENERAL_TEMPLATE.format(msg_type='text', 
-                                        additional_info='<Content><![CDATA[this is a test]]></Content>')
+                                        additional_info='<Content><![CDATA[{text}]]></Content>')
 IMAGE_TEMPLATE = GENERAL_TEMPLATE.format(msg_type='image',
-                                         additional_info="""<PicUrl><![CDATA[this is a url]]></PicUrl>
-                                                            <MediaId><![CDATA[media_id]]></MediaId>""")
+                                         additional_info="""<PicUrl><![CDATA[{pic_url}]]></PicUrl>
+                                                            <MediaId><![CDATA[{media_id}]]></MediaId>""")
 VOICE_TEMPLATE = GENERAL_TEMPLATE.format(msg_type='voice',
-                                         additional_info="""<MediaId><![CDATA[media_id]]></MediaId>
-                                                            <Format><![CDATA[Format]]></Format>""")
+                                         additional_info="""<MediaId><![CDATA[{media_id}]]></MediaId>
+                                                            <Format><![CDATA[{format}]]></Format>""")
 VIDEO_TEMPLATE = GENERAL_TEMPLATE.format(msg_type='video',
-                                         additional_info="""<MediaId><![CDATA[media_id]]></MediaId>
-                                                            <ThumbMediaId><![CDATA[thumb_media_id]]></ThumbMediaId>""")
+                                         additional_info="""<MediaId><![CDATA[{media_id}]]></MediaId>
+                                                            <ThumbMediaId><![CDATA[{thumb_media_id}]]></ThumbMediaId>""")
 LOCATION_TEMPLATE = GENERAL_TEMPLATE.format(msg_type='location',
-                                            additional_info="""<Location_X>23.134521</Location_X>
-                                                               <Location_Y>113.358803</Location_Y>
-                                                               <Scale>20</Scale>
-                                                               <Label><![CDATA[位置信息]]></Label>""")
+                                            additional_info="""<Location_X>{latitude}</Location_X>
+                                                               <Location_Y>{longitude}</Location_Y>
+                                                               <Scale>{scale}</Scale>
+                                                               <Label><![CDATA[{label}]]></Label>""")
 LINK_TEMPLATE = GENERAL_TEMPLATE.format(msg_type='link',
-                                        additional_info="""<Title><![CDATA[公众平台官网链接]]></Title>
-                                                           <Description><![CDATA[公众平台官网链接]]></Description>
-                                                           <Url><![CDATA[url]]></Url>""")
+                                        additional_info="""<Title><![CDATA[{title}]]></Title>
+                                                           <Description><![CDATA[{description}]]></Description>
+                                                           <Url><![CDATA[{url}]]></Url>""")
 
+WECHAT_TEMPLATES = {
+'text': TEXT_TEMPLATE,
+'image': IMAGE_TEMPLATE,
+'voice': VOICE_TEMPLATE,
+'video': VIDEO_TEMPLATE,
+'location': LOCATION_TEMPLATE,
+'link': LINK_TEMPLATE,
+}
 #TEXT_TEMPLATE = """
 #                <xml>
 #                <ToUserName><![CDATA[toUser]]></ToUserName>
