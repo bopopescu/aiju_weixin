@@ -66,7 +66,8 @@ def return_image_msg_to_wechat(app_id, usr_open_id, msg_template, pic_url, media
         from_user=app_id, 
         pic_url=pic_url, 
         media_id=media_id, 
-        timestamp=resp_create_time
+        timestamp=resp_create_time,
+        msg_id=123456,
     )
 
 def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
