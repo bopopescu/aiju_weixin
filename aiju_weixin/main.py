@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 app = Flask(__name__)
 
 APP_ROOT = '/'
-APP_TOKEN = 'aiju2014'
+APP_TOKEN = 'Aiju_NewYork_NewYork_2014'
 # verify for weixin server.
 # weixin server will send GET request first to verify this backend
 @app.route(APP_ROOT, methods=['GET'])
@@ -15,6 +15,7 @@ def weixin_access_verify():
     echostr = request.args.get('echostr')
     if verification(request) and echostr is not None:
         return echostr
+	print "verification successful!"
     return 'access verification fail'
 
 # reciever msgs from weixin server
