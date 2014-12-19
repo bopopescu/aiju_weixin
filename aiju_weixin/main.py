@@ -61,7 +61,13 @@ def weixin_msg():
 
 def return_image_msg_to_wechat(app_id, usr_open_id, msg_template, pic_url, media_id):
     resp_create_time = int(time.time())
-    return msg_template.format(to_user=usr_open_id, from_user=app_id, pic_url=pic_url, media_id=media_id)
+    return msg_template.format(
+        to_user=usr_open_id, 
+        from_user=app_id, 
+        pic_url=pic_url, 
+        media_id=media_id, 
+        timestamp=resp_create_time
+    )
 
 def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
     print "return text msg to user"
