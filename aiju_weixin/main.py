@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 
-m flask import Flask, request
+flask import Flask, request
 import hashlib, time
 import xml.etree.ElementTree as ET
 
