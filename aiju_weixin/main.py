@@ -43,7 +43,6 @@ def weixin_msg():
         data = request.data
         msg = parse_msg(data)
 
-        usr_msg =  msg["Content"]
         usr_open_id = msg["FromUserName"]
         app_id = msg["ToUserName"]
 
@@ -52,11 +51,12 @@ def weixin_msg():
         msg_template = wechatconst.WECHAT_TEMPLATES[msg_type]
         
         if msg_type == 'text':
+            usr_msg =  msg["Content"]
             return return_text_msg_to_wechat(app_id, usr_open_id, usr_msg)
         elif msg_type == 'image':
             media_id = msg["MediaId"]
             pic_url = msg["PicUrl"]
-            return return_image_msg_to_wechat()
+            return return_image_msg_to_wechat(app_id, usr_open_id, msg_template, pic_url, media_id)
 
 
 def return_image_msg_to_wechat(app_id, usr_open_id, msg_template, pic_url, media_id):
