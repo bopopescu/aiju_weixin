@@ -52,12 +52,21 @@ def weixin_msg():
         
         if msg_type == 'text':
             usr_msg =  msg["Content"]
+            usr_msg = u"I am AIJU. You just sent: {0} to me.".format(usr_msg)
             return return_text_msg_to_wechat(app_id, usr_open_id, usr_msg)
         elif msg_type == 'image':
             media_id = msg["MediaId"]
             pic_url = msg["PicUrl"]
-            return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your pic with us!')
-
+            return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your picture!')
+        elif msg_type == 'location':
+            return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your location!')
+        elif msg_type == 'video':
+            return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your video!')
+        elif msg_type == 'voice':
+            return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your voice!')
+        elif msg_type == 'link':
+            return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your link!')
+ 
 def return_image_msg_to_wechat(app_id, usr_open_id, msg_template, pic_url, media_id):
     resp_create_time = int(time.time())
     return msg_template.format(
@@ -69,12 +78,9 @@ def return_image_msg_to_wechat(app_id, usr_open_id, msg_template, pic_url, media
         msg_id=123456,
     )
 
-def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
-    print "return text msg to user"
+def return_text_msg_to_wechat(app_id, usr_open_id, resp_msg):
     resp_create_time = int(time.time())
-    resp_msg = u"I am AIJU. You just sent: {0} to me.".format(usr_msg)
-    print resp_msg
-    return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time,resp_msg.encode('utf8'))
+    return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time, resp_msg.encode('utf8'))
 
 def parse_msg(rawmsgstr):
     root = ET.fromstring(rawmsgstr)
