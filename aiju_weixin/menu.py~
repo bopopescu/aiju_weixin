@@ -1,0 +1,27 @@
+# -*- coding: utf-8 -*-
+
+from flask import Flask, request
+import json
+
+import main
+
+def create_menu():
+    menu = {
+        "button": [
+            {
+                "name": u'爱聚文章',
+                'sub_button': [
+                    {
+                        'type': 'view',
+                        'name': u'爱聚厨房',
+                        'key': 'kitchen',
+                    },
+                    {
+                        'type': 'view',
+                        'name': u'爱聚书房',
+                        'key': 'library',
+                    },
+                ]
+            }
+        ]
+    }
