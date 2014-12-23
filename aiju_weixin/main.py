@@ -56,8 +56,7 @@ def weixin_msg():
         elif msg_type == 'image':
             media_id = msg["MediaId"]
             pic_url = msg["PicUrl"]
-            return return_image_msg_to_wechat(app_id, usr_open_id, msg_template, pic_url, media_id)
-
+            return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your pic with us!')
 
 def return_image_msg_to_wechat(app_id, usr_open_id, msg_template, pic_url, media_id):
     resp_create_time = int(time.time())
