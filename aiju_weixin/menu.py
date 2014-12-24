@@ -2,11 +2,22 @@
 
 from flask import Flask, request
 import json
+import urllib
+import urllib2
 
 import main
 
 APP_ID = ''
 APP_SECRET = ''
+
+TOKEN_URL = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={app_id}&secret={secret}'.format(app_id=APP_ID, secret=APP_SECRET)
+
+f = urllib2.urlopen(TOKEN_URL)
+data = f.read()
+data = json.loads(data)
+access_token = data['access_token']
+
+MENU_URL = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' + access_token
 
 def create_menu():
     menu = {
@@ -50,3 +61,8 @@ def create_menu():
             },
         ]
     }
+    return menu
+
+menu = create_menu()
+menu = json.dumps(menu).encode('utf-8')
+request = urllib2.urlopen(MENU_URL, menu)
