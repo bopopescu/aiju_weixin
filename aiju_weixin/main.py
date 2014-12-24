@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, request
+from weixin import verification, parse_msg
 import hashlib, time
 import xml.etree.ElementTree as ET
+import ConfigParser
 
 app = Flask(__name__)
 
 APP_ROOT = '/'
-APP_TOKEN = 'Aiju_NewYork_NewYork_2014'
+#APP_TOKEN = 'Aiju_NewYork_NewYork_2014'
+
+config = ConfigParser.ConfigParser()
+config.read('/home/ec2-user/aiju_weixin/config.cfg')
+APP_TOKEN = config.get('aj_wx_public','app_token')
 
 RETURN_TEXT_RESPONSE = """
                      <xml><ToUserName><![CDATA[{0}]]></ToUserName>
@@ -34,12 +40,18 @@ def weixin_access_verify():
 @app.route(APP_ROOT, methods=['POST'])
 def weixin_msg():
     print "inside weixin_msg"
+    
+    data1 = request.data
+    msg1 = parse_msg(data1)
+    print msg1["Content"]
+    print msg1["ToUserName"]    
+
     if verification(request):
         data = request.data
         msg = parse_msg(data)
-        #print data
-        #print
-        #print type(msg)
+        print data
+        print
+        print type(msg)
         usr_msg =  msg["Content"]
         usr_open_id = msg["FromUserName"]
         app_id = msg["ToUserName"]
@@ -48,7 +60,11 @@ def weixin_msg():
         #print usr_open_id
         #print app_id
 
-    return return_text_msg_to_wechat(app_id, usr_open_id, usr_msg)
+        return return_text_msg_to_wechat(app_id, usr_open_id, usr_msg)
+    
+    print "msg verification fail"
+    #return return_text_msg_to_wechat(app_id, usr_open_id, usr_msg)
+    return "nothing"
 
 def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
     print "return text msg to user"
@@ -56,32 +72,6 @@ def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
     resp_msg = u"I am AIJU. You just sent: {0} to me.".format(usr_msg)
     print resp_msg
     return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time,resp_msg.encode('utf8'))
-
-def parse_msg(rawmsgstr):
-    root = ET.fromstring(rawmsgstr)
-    msg = {}
-    for child in root:
-        msg[child.tag] = child.text
-    return msg
-
-def verification(req):
-    print "inside verificantion"
-    signature = req.args.get('signature')
-    timestamp = req.args.get('timestamp')
-    nonce = req.args.get('nonce')
-
-    if signature is None or timestamp is None or nonce is None:
-        return False
-
-    token = APP_TOKEN
-    tmplist = [token, timestamp, nonce]
-    tmplist.sort()
-    tmpstr = ''.join(tmplist)
-    hashstr = hashlib.sha1(tmpstr).hexdigest()
-
-    if hashstr == signature:
-        return True
-    return False
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=80)
