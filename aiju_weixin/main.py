@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, request
-from weixin import verification, parse_msg
+from weixin import verification, parse_msg, get_access_token, get_usr_info
+import requests, json
 import hashlib, time
 import xml.etree.ElementTree as ET
 import ConfigParser
@@ -39,32 +40,44 @@ def weixin_access_verify():
 # reciever msgs from weixin server
 @app.route(APP_ROOT, methods=['POST'])
 def weixin_msg():
-    print "inside weixin_msg"
+	print "inside weixin_msg"
+	
+	#print request.user_agent.browser
+	#print request.user_agent.platform
+	#print request.user_agent.string
+	#print request.user_agent.version
+	#print request.user_agent.language
+	#print request.headers
+	#print type(request.headers)
+	
+	#get_access_token()
+	
+	#print get_access_token()	
+
+
+	if verification(request):
+		data = request.data
+		msg = parse_msg(data)
+		
+		#print data
+		#print
+		#print type(msg)
+		
+		usr_msg =  msg["Content"]
+		usr_open_id = msg["FromUserName"]
+		app_id = msg["ToUserName"]
+
+		#print usr_msg
+		#print usr_open_id
+		#print app_id
+		
+		print usr_open_id	
+		print get_usr_info(usr_open_id)
+
+		return return_text_msg_to_wechat(app_id, usr_open_id, usr_msg)
     
-    data1 = request.data
-    msg1 = parse_msg(data1)
-    print msg1["Content"]
-    print msg1["ToUserName"]    
-
-    if verification(request):
-        data = request.data
-        msg = parse_msg(data)
-        print data
-        print
-        print type(msg)
-        usr_msg =  msg["Content"]
-        usr_open_id = msg["FromUserName"]
-        app_id = msg["ToUserName"]
-
-        #print usr_msg
-        #print usr_open_id
-        #print app_id
-
-        return return_text_msg_to_wechat(app_id, usr_open_id, usr_msg)
-    
-    print "msg verification fail"
-    #return return_text_msg_to_wechat(app_id, usr_open_id, usr_msg)
-    return "nothing"
+	print "msg verification fail"
+	return "nothing"
 
 def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
     print "return text msg to user"

@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*- 
-import hashlib, ConfigParser
+import requests
+import hashlib, ConfigParser, json
 import xml.etree.ElementTree as ET
 
 # retrieve config info
 config = ConfigParser.ConfigParser()
 config.read('/home/ec2-user/aiju_weixin/config.cfg')
+
 APP_TOKEN = config.get('aj_wx_public','app_token')
+APP_SECRET = config.get('aj_wx_public','app_secret')
+APP_ID = config.get('aj_wx_public','app_id')
+
+access_tokken = '_JJoXh8EdCCL5fHvR3AN_EyrHnXnfbaVDhFntGo_gD_9XTVSvBmxTumkHEexpr6ayJEx4yfIJuEVW0-3Y95iG46So97x94CZnLWdHNOGRTQ'
 
 # 验证消息真实性
 def verification(req):
@@ -26,6 +32,40 @@ def verification(req):
 	if hashstr == signature:
 		return True
 	return False
+
+def get_access_token(app_id=None,app_secret=None):
+
+	if (app_id is None or app_secret is None):
+		app_id = APP_ID
+		app_secret = APP_SECRET
+	
+	wx_access_token_url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}'.format(app_id,app_secret)
+	r = requests.get(wx_access_token_url, headers={'Connection':'close'})
+	
+	if r.status_code == 200:
+		resp = json.loads(r.text)
+		if "errcode" in resp:
+			print "get_access_token failed in weixin.py."
+			print resp
+			return -1
+		else:
+			#access_tokken = resp['access_token']
+			return resp["access_token"]
+	else:
+		print "get_access_token failed in weixin.py."
+		print "Status code: " + r.status_code
+		print "err msg: " + r.text
+		return -1	
+
+def get_usr_info(usr_open_id):
+
+	if usr_open_id is None:
+		return -1
+
+	request_url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}&lang=zh_CN".format(access_tokken, usr_open_id)
+	r = requests.get(request_url, headers={'Connection':'close'})
+	return r.text.encode('utf8')
+	
 
 def parse_msg(rawmsgstr):
     root = ET.fromstring(rawmsgstr)
