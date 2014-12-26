@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 
 import wechatconst
 
-from flask import Flask, request
+from flask import Flask, request, cli
 
 
 app = Flask(__name__)
