@@ -23,6 +23,11 @@ RETURN_TEXT_RESPONSE = """
                      </xml>
                      """
 
+@app.cli.command('create_menu')
+def create_menu_command():
+    menu.create_menu()
+    print('Menu created')
+
 # verify for weixin server.
 # weixin server will send GET request first to verify this backend
 @app.route(APP_ROOT, methods=['GET'])
