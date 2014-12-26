@@ -17,9 +17,10 @@ data = f.read()
 data = json.loads(data)
 access_token = data['access_token']
 
-MENU_URL = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' + access_token
+MENU_CREATE_URL = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' + access_token
+MENU_DELETE_URL = 'https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=' + access_token
 
-def create_menu():
+def get_menu():
     menu = {
         "button": [
             {
@@ -63,6 +64,7 @@ def create_menu():
     }
     return menu
 
-menu = create_menu()
-menu = json.dumps(menu).encode('utf-8')
-request = urllib2.urlopen(MENU_URL, menu)
+def create_menu():
+    menu = create_menu()
+    menu = json.dumps(menu).encode('utf-8')
+    request = urllib2.urlopen(MENU_URL, menu)
