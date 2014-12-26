@@ -7,8 +7,8 @@ import urllib2
 
 import main
 
-APP_ID = ''
-APP_SECRET = ''
+APP_ID = 'wx92ab0673ca2fcc80'
+APP_SECRET = 'a6a1ae038ce493282cee5ceef98f1fc2'
 
 TOKEN_URL = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={app_id}&secret={secret}'.format(app_id=APP_ID, secret=APP_SECRET)
 
