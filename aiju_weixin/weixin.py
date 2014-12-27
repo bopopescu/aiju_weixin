@@ -32,7 +32,7 @@ def verification(req):
 		return True
 	return False
 
-def get_access_token(app_id=None,app_secret=None):
+def get_new_access_token(app_id=None,app_secret=None):
 
 	if (app_id is None or app_secret is None):
 		app_id = APP_ID
@@ -65,8 +65,8 @@ def get_usr_info(usr_open_id, access_token):
 	return r.text.encode('utf8')
 	
 def parse_msg(rawmsgstr):
-    root = ET.fromstring(rawmsgstr)
-    msg = {}
-    for child in root:
-        msg[child.tag] = child.text
-    return msg
+	root = ET.fromstring(rawmsgstr)
+	msg = {}
+	for child in root:
+		msg[child.tag] = child.text
+	return msg
