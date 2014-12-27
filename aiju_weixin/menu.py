@@ -69,9 +69,11 @@ def get_token():
 
 def create_menu(token):
     menu = get_menu_structure()
-    menu = json.dumps(menu, ensure_ascii=False)
+    menu = json.dumps(menu, ensure_ascii=False)#.encode('utf-8')
     request = urllib2.Request(MENU_CREATE_URL+token)
     request.add_header('Content-Type', 'application/json')
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
     response = urllib2.urlopen(request, menu)
     ret_dict = json.loads(response.read())
     print(ret_dict)
