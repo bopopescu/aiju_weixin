@@ -32,7 +32,7 @@ def get_menu_structure():
                         'type': 'view',
                         'name': u'爱聚书房',
                         'key': 'https://www.aijunyc.com/zhs/article?post=229',
-                    },
+                    }
                 ]
             },
             {
@@ -47,14 +47,14 @@ def get_menu_structure():
                         'type': 'click',
                         'name': u'爱聚回顾',
                         'key': 'review',
-                    },
+                    }
                 ]
             },
             {
                 "name": u'爱聚团队',
                 'type': 'click',
                 'key': 'about_us',
-            },
+            }
         ]
     }
     return menu
@@ -68,6 +68,7 @@ def get_token():
     return access_token
 
 def create_menu(token):
+    print(token)
     menu = get_menu_structure()
     menu = json.dumps(menu)#.encode('utf-8')
     request = urllib2.urlopen(MENU_CREATE_URL+token, menu)
