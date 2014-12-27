@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 
 import wechatconst
 
-from flask import Flask, request, cli
+from flask import Flask, request
 
 
 app = Flask(__name__)
@@ -22,11 +22,6 @@ RETURN_TEXT_RESPONSE = """
                      <Content><![CDATA[{3}]]></Content>
                      </xml>
                      """
-
-@app.cli.command('create_menu')
-def create_menu_command():
-    menu.create_menu()
-    print('Menu created')
 
 # verify for weixin server.
 # weixin server will send GET request first to verify this backend

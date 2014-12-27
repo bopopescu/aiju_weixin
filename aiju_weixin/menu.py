@@ -68,3 +68,7 @@ def create_menu():
     menu = create_menu()
     menu = json.dumps(menu).encode('utf-8')
     request = urllib2.urlopen(MENU_URL, menu)
+
+
+if __name__ == '__main__':
+    create_menu()
