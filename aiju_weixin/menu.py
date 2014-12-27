@@ -57,8 +57,6 @@ def get_menu():
                 "name": u'爱聚团队',
                 'type': 'click',
                 'key': 'about_us',
-                    },
-                ]
             },
         ]
     }
