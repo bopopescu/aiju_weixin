@@ -63,6 +63,7 @@ def create_menu(token):
     request = urllib2.urlopen(MENU_CREATE_URL+token, menu)
 
 def get_token():
+    print(TOKEN_URL)
     f = urllib2.urlopen(TOKEN_URL)
     data = f.read()
     data = json.loads(data)
