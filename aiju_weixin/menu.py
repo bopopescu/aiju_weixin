@@ -42,19 +42,19 @@ def get_menu_structure():
                     {
                         'type': 'click',
                         'name': u'爱聚福利',
-                        'key': 'benefit',
+                        'key': 'benefit'
                     },
                     {
                         'type': 'click',
                         'name': u'爱聚回顾',
-                        'key': 'review',
+                        'key': 'review'
                     }
                 ]
             },
             {
-                "name": u'爱聚团队',
                 'type': 'click',
-                'key': 'about_us',
+                "name": u'爱聚团队',
+                'key': 'about_us'
             }
         ]
     }
