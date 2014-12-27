@@ -68,6 +68,7 @@ def get_token():
     data = f.read()
     data = json.loads(data)
     access_token = data['access_token']
+    return access_token
 
 if __name__ == '__main__':
     token = get_token()
