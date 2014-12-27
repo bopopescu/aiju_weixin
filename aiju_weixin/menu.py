@@ -71,7 +71,7 @@ def create_menu(token):
     menu = get_menu_structure()
     menu = json.dumps(menu).encode('utf-8')
     request = urllib2.urlopen(MENU_CREATE_URL+token, menu)
-    ret_dict = json.loads(request.decode('utf-8'))
+    ret_dict = json.loads(request.read())
     print(ret_dict)
 
 def get_menu(token):
