@@ -81,9 +81,9 @@ def get_menu(token):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--create', help='create menu')
-    parser.add_argument('-g', '--get', help='get menu')
-    parser.add_argument('-d', '--delete', help='delete menu')
+    parser.add_argument('-c', '--create', action='store_true', help='create menu')
+    parser.add_argument('-g', '--get', action='store_true', help='get menu')
+    parser.add_argument('-d', '--delete', action='store_true', help='delete menu')
 
     args = parser.parse_args()
 
