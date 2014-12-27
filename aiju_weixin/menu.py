@@ -72,8 +72,7 @@ def create_menu(token):
     menu = json.dumps(menu)#.encode('utf-8')
     request = urllib2.Request(MENU_CREATE_URL+token, menu)
     request.get_method = lambda: 'POST'
-    try:
-        response = urllib2.urlopen(request)
+    response = urllib2.urlopen(request)
     ret_dict = json.loads(request.read())
     print(ret_dict)
 
