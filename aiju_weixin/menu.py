@@ -63,7 +63,7 @@ def get_menu():
     return menu
 
 def create_menu():
-    menu = create_menu()
+    menu = get_menu()
     menu = json.dumps(menu).encode('utf-8')
     request = urllib2.urlopen(MENU_URL, menu)
 
