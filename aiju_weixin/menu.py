@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import argparse
 from flask import Flask, request
 import json
 import urllib
@@ -13,6 +14,7 @@ APP_SECRET = 'a6a1ae038ce493282cee5ceef98f1fc2'
 TOKEN_URL = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={app_id}&secret={secret}'.format(app_id=APP_ID, secret=APP_SECRET)
 
 MENU_CREATE_URL = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='
+MENU_GET_URL = 'https://api.weixin.qq.com/cgi-bin/menu/get?access_token='
 MENU_DELETE_URL = 'https://api.weixin.qq.com/cgi-bin/menu/delete?access_token='
 
 def get_menu():
@@ -57,11 +59,6 @@ def get_menu():
     }
     return menu
 
-def create_menu(token):
-    menu = get_menu()
-    menu = json.dumps(menu).encode('utf-8')
-    request = urllib2.urlopen(MENU_CREATE_URL+token, menu)
-
 def get_token():
     print(TOKEN_URL)
     f = urllib2.urlopen(TOKEN_URL)
@@ -70,6 +67,28 @@ def get_token():
     access_token = data['access_token']
     return access_token
 
+def create_menu(token):
+    menu = get_menu()
+    menu = json.dumps(menu).encode('utf-8')
+    request = urllib2.urlopen(MENU_CREATE_URL+token, menu)
+    ret_dict = json.loads(request)
+    print(ret_dict)
+
+def get_menu(token):
+    request = urllib2.urlopen(MENU_GET_URL+token)
+    ret_dict = json.loads(request)
+    print(ret_dict)
+
 if __name__ == '__main__':
-    token = get_token()
-    create_menu(token)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-c', '--create', help='create menu')
+    parser.add_argument('-g', '--get', help='get menu')
+    parser.add_argument('-d', '--delete', help='delete menu')
+
+    args = parser.parse_args()
+
+    if args.create:
+        token = get_token()
+        create_menu(token)
+    if args.get:
+        token = get_token()
