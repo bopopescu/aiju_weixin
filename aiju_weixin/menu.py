@@ -21,40 +21,40 @@ def get_menu_structure():
     menu = {
         "button": [
             {
-                "name": u'爱聚文章',
+                "name": '爱聚文章',
                 'sub_button': [
                     {
                         'type': 'view',
-                        'name': u'爱聚厨房',
+                        'name': '爱聚厨房',
                         'url': 'https://www.aijunyc.com/zhs/article?post=238',
                     },
                     {
                         'type': 'view',
-                        'name': u'爱聚书房',
+                        'name': '爱聚书房',
                         'key': 'https://www.aijunyc.com/zhs/article?post=229',
-                    },
+                    }
                 ]
             },
             {
-                "name": u'爱聚活动',
+                "name": '爱聚活动',
                 'sub_button': [
                     {
                         'type': 'click',
-                        'name': u'爱聚福利',
+                        'name': '爱聚福利',
                         'key': 'benefit',
                     },
                     {
                         'type': 'click',
-                        'name': u'爱聚回顾',
+                        'name': '爱聚回顾',
                         'key': 'review',
-                    },
+                    }
                 ]
             },
             {
-                "name": u'爱聚团队',
+                "name": '爱聚团队',
                 'type': 'click',
                 'key': 'about_us',
-            },
+            }
         ]
     }
     return menu
