@@ -21,40 +21,40 @@ def get_menu_structure():
     menu = {
         "button": [
             {
-                "name": '爱聚文章',
+                "name": u'爱聚文章',
                 'sub_button': [
                     {
                         'type': 'view',
-                        'name': '爱聚厨房',
+                        'name': u'爱聚厨房',
                         'url': 'https://www.aijunyc.com/zhs/article?post=238',
                     },
                     {
                         'type': 'view',
-                        'name': '爱聚书房',
+                        'name': u'爱聚书房',
                         'key': 'https://www.aijunyc.com/zhs/article?post=229',
-                    }
+                    },
                 ]
             },
             {
-                "name": '爱聚活动',
+                "name": u'爱聚活动',
                 'sub_button': [
                     {
                         'type': 'click',
-                        'name': '爱聚福利',
+                        'name': u'爱聚福利',
                         'key': 'benefit',
                     },
                     {
                         'type': 'click',
-                        'name': '爱聚回顾',
+                        'name': u'爱聚回顾',
                         'key': 'review',
-                    }
+                    },
                 ]
             },
             {
-                "name": '爱聚团队',
+                "name": u'爱聚团队',
                 'type': 'click',
                 'key': 'about_us',
-            }
+            },
         ]
     }
     return menu
@@ -69,9 +69,9 @@ def get_token():
 
 def create_menu(token):
     menu = get_menu_structure()
-    menu = json.dumps(menu).encode('utf-8')
+    menu = json.dumps(menu)#.encode('utf-8')
     request = urllib2.urlopen(MENU_CREATE_URL+token, menu)
-    ret_dict = json.loads(request.read())
+    ret_dict = json.loads(request)
     print(ret_dict)
 
 def get_menu(token):
