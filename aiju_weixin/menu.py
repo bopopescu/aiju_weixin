@@ -12,13 +12,8 @@ APP_SECRET = 'a6a1ae038ce493282cee5ceef98f1fc2'
 
 TOKEN_URL = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={app_id}&secret={secret}'.format(app_id=APP_ID, secret=APP_SECRET)
 
-f = urllib2.urlopen(TOKEN_URL)
-data = f.read()
-data = json.loads(data)
-access_token = data['access_token']
-
-MENU_CREATE_URL = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' + access_token
-MENU_DELETE_URL = 'https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=' + access_token
+MENU_CREATE_URL = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='
+MENU_DELETE_URL = 'https://api.weixin.qq.com/cgi-bin/menu/delete?access_token='
 
 def get_menu():
     menu = {
@@ -62,11 +57,17 @@ def get_menu():
     }
     return menu
 
-def create_menu():
+def create_menu(token):
     menu = get_menu()
     menu = json.dumps(menu).encode('utf-8')
-    request = urllib2.urlopen(MENU_URL, menu)
+    request = urllib2.urlopen(MENU_CREATE_URL+token, menu)
 
+def get_token():
+    f = urllib2.urlopen(TOKEN_URL)
+    data = f.read()
+    data = json.loads(data)
+    access_token = data['access_token']
 
 if __name__ == '__main__':
-    create_menu()
+    token = get_token()
+    create_menu(token)
