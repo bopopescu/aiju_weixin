@@ -73,8 +73,7 @@ def create_menu(token):
     request = urllib2.Request(MENU_CREATE_URL+token)
     request.add_header('Content-Type', 'application/json')
     response = urllib2.urlopen(request, menu)
-    ret_dict = json.loads(request.read())
-    print(ret_dict)
+    print(response)
 
 def get_menu(token):
     request = urllib2.urlopen(MENU_GET_URL+token)
