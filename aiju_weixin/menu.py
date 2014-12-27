@@ -27,12 +27,12 @@ def get_menu_structure():
                     {
                         'type': 'view',
                         'name': u'爱聚厨房',
-                        'url': 'https://www.aijunyc.com',
+                        'url': 'https://www.aijunyc.com/zhs/article?post=238',
                     },
                     {
                         'type': 'view',
                         'name': u'爱聚书房',
-                        'key': 'https://www.aijunyc.com',
+                        'url': 'https://www.aijunyc.com/zhs/article?post=229',
                     }
                 ]
             },
