@@ -19,10 +19,10 @@ MENU_GET_URL = 'https://api.weixin.qq.com/cgi-bin/menu/get?access_token='
 MENU_DELETE_URL = 'https://api.weixin.qq.com/cgi-bin/menu/delete?access_token='
 
 def get_menu_structure():
-    menu = {
+	invalid_menu = {
         "button": [
             {
-                "name": u'爱聚文章',
+                "name": u"爱聚文章",
                 'sub_button': [
                     {
                         'type': 'view',
@@ -58,7 +58,49 @@ def get_menu_structure():
             }
         ]
     }
-    return menu
+	
+
+	valid_menu = {
+    "button": [
+        {
+            "name": "爱聚文章",
+            "sub_button": [
+                {
+                    "type": "view",
+                    "name": "爱聚厨房",
+                    "url": "http://www.aijunyc.com"
+                },
+                {
+                    "type": "view",
+                    "name": "爱聚书房",
+                    "url": "http://www.aijunyc.com"
+                }
+            ]
+        },
+        {
+            "name": "爱聚活动",
+            "sub_button": [
+                {
+                    "type": "click",
+                    "name": "爱聚福利",
+                    "key": "benefit"
+                },
+                {
+                    "type": "click",
+                    "name": "爱聚回顾",
+                    "key": "review"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "name": "爱聚团队",
+            "key": "about_us"
+        }
+    ]
+	}	
+
+	return valid_menu
 
 def get_token():
     print(TOKEN_URL)
