@@ -62,7 +62,7 @@ def get_usr_info(usr_open_id, access_token):
 
 	request_url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}&lang=zh_CN".format(access_token, usr_open_id)
 	r = requests.get(request_url, headers={'Connection':'close'})
-	return r.text.encode('utf8')
+	return r.text
 	
 def parse_msg(rawmsgstr):
 	root = ET.fromstring(rawmsgstr)

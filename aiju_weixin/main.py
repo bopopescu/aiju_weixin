@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, request
-from weixin import verification, parse_msg, get_new_access_token, get_usr_info
-import requests, json
-import hashlib, time
-import xml.etree.ElementTree as ET
+from weixin import *
+import json
+import time
 import ConfigParser
 
 app = Flask(__name__)
@@ -50,7 +49,6 @@ def weixin_msg():
 		usr_open_id = msg["FromUserName"]
 		app_id = msg["ToUserName"]
 
-
 		print usr_msg
 
 		return return_text_msg_to_wechat(app_id, usr_open_id, usr_msg)
@@ -61,16 +59,17 @@ def weixin_msg():
 
 def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
 	resp_create_time = int(time.time())
-	resp_msg = u"I am AIJU. You just sent: {0} to me.".format(usr_msg)
+	#resp_msg = u"I am AIJU. You just sent: {0} to me.".format(usr_msg)
 
-	resp_msg = json.dumps(get_usr_info(usr_open_id, get_access_token()))
-	#return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time,resp_msg)
+	resp_msg = json.loads(get_usr_info(usr_open_id, get_access_token()))
 
-	print type(resp_msg)
-	print type(resp_msg.encode("utf8"))
-	print resp_msg.encode("utf8")	
+	print resp_msg['province'].encode('utf-8')
+	print get_usr_info(usr_open_id, get_access_token())
 
-	return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time,resp_msg.decode("utf8"))
+	#return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time,get_usr_info(usr_open_id, get_access_token()).encode("utf8"))
+
+	return ""
+
 
 
 def get_access_token():
