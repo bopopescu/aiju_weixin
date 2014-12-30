@@ -81,12 +81,12 @@ def create_menu(token):
     print(ret_dict)
 
 def get_menu(token):
-    request = urllib2.urlopen(MENU_GET_URL+token)
+    response = urllib2.urlopen(MENU_GET_URL+token)
     ret_dict = json.loads(response.read())
     print(ret_dict)
 
 def delete_menu(token):
-    request = urllib2.urlopen(MENU_DELETE_URL+token)
+    response = urllib2.urlopen(MENU_DELETE_URL+token)
     ret_dict = json.loads(response.read())
     print(ret_dict)
 
