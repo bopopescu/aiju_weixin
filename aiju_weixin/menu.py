@@ -106,4 +106,4 @@ if __name__ == '__main__':
         get_menu(token)
     if args.delete:
         token = get_token()
-        delete_menu()
+        delete_menu(token)
