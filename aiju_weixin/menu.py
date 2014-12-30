@@ -21,42 +21,41 @@ MENU_DELETE_URL = 'https://api.weixin.qq.com/cgi-bin/menu/delete?access_token='
 def get_menu_structure():
     menu = {
         "button": [
-            {
-                "name": u'爱聚文章',
-                'sub_button': [
-                    {
-                        'type': 'view',
-                        'name': u'爱聚厨房',
-                        'url': 'https://www.aijunyc.com/'
-                    },
-                    {
-                        'type': 'view',
-                        'name': u'爱聚书房',
-                        'url': 'https://www.aijunyc.com/'
-                    }
-                ]
-            },
-            {
-                "name": u'爱聚活动',
-                'sub_button': [
-                    {
-                        'type': 'click',
-                        'name': u'爱聚福利',
-                        'key': 'benefit'
-                    },
-                    {
-                        'type': 'click',
-                        'name': u'爱聚回顾',
-                        'key': 'review'
-                    }
-                ]
-            },
-            {
-                'type': 'click',
-                "name": u'爱聚团队',
-                'key': 'about_us'
-            }
-        ]
+        {
+            "name": "爱聚文章",
+            "sub_button": [
+                {
+                    "type": "view",
+                    "name": "爱聚厨房",
+                    "url": "https://www.aijunyc.com/"
+                },
+                {
+                    "type": "view",
+                    "name": "爱聚书房",
+                    "url": "https: //www.aijunyc.com/"
+                }
+            ]
+        },
+        {
+            "name": "爱聚活动",
+            "sub_button": [
+                {
+                    "type": "click",
+                    "name": "爱聚福利",
+                    "key": "benefit"
+                },
+                {
+                    "type": "click",
+                    "name": "爱聚回顾",
+                    "key": "review"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "name": "爱聚团队",
+            "key": "about_us"
+        }]
     }
     return menu
 
