@@ -85,6 +85,11 @@ def get_menu(token):
     ret_dict = json.loads(request)
     print(ret_dict)
 
+def delete_menu(token):
+    request = urllib2.urlopen(MENU_DELETE_URL+token)
+    ret_dict = json.loads(request)
+    print(ret_dict)
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-c', '--create', action='store_true', help='create menu')
@@ -98,3 +103,7 @@ if __name__ == '__main__':
         create_menu(token)
     if args.get:
         token = get_token()
+        get_menu(token)
+    if args.delete:
+        token = get_token()
+        delete_menu()
