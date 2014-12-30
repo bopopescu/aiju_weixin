@@ -19,85 +19,6 @@ MENU_GET_URL = 'https://api.weixin.qq.com/cgi-bin/menu/get?access_token='
 MENU_DELETE_URL = 'https://api.weixin.qq.com/cgi-bin/menu/delete?access_token='
 
 def get_menu_structure():
-	invalid_menu = {
-        "button": [
-<<<<<<< HEAD
-            {
-                "name": u"爱聚文章",
-                'sub_button': [
-                    {
-                        'type': 'view',
-                        'name': u'爱聚厨房',
-                        'url': 'https://www.aijunyc.com/'
-                    },
-                    {
-                        'type': 'view',
-                        'name': u'爱聚书房',
-                        'url': 'https://www.aijunyc.com/'
-                    }
-                ]
-            },
-            {
-                "name": u'爱聚活动',
-                'sub_button': [
-                    {
-                        'type': 'click',
-                        'name': u'爱聚福利',
-                        'key': 'benefit'
-                    },
-                    {
-                        'type': 'click',
-                        'name': u'爱聚回顾',
-                        'key': 'review'
-                    }
-                ]
-            },
-            {
-                'type': 'click',
-                "name": u'爱聚团队',
-                'key': 'about_us'
-            }
-        ]
-=======
-        {
-            "name": "爱聚文章",
-            "sub_button": [
-                {
-                    "type": "view",
-                    "name": "爱聚厨房",
-                    "url": "https://www.aijunyc.com/"
-                },
-                {
-                    "type": "view",
-                    "name": "爱聚书房",
-                    "url": "https: //www.aijunyc.com/"
-                }
-            ]
-        },
-        {
-            "name": "爱聚活动",
-            "sub_button": [
-                {
-                    "type": "click",
-                    "name": "爱聚福利",
-                    "key": "benefit"
-                },
-                {
-                    "type": "click",
-                    "name": "爱聚回顾",
-                    "key": "review"
-                }
-            ]
-        },
-        {
-            "type": "click",
-            "name": "爱聚团队",
-            "key": "about_us"
-        }]
->>>>>>> c1f2e4398cc226388ce6690f820f37920a8ddcbb
-    }
-	
-
 	valid_menu = {
     "button": [
         {
@@ -106,12 +27,12 @@ def get_menu_structure():
                 {
                     "type": "view",
                     "name": "爱聚厨房",
-                    "url": "http://www.aijunyc.com"
+                    "url": "http://www.aijunyc.com/zhs/article?post=268"
                 },
                 {
                     "type": "view",
                     "name": "爱聚书房",
-                    "url": "http://www.aijunyc.com"
+                    "url": "http://www.aijunyc.com/zhs/article?post=229"
                 }
             ]
         },
@@ -119,21 +40,21 @@ def get_menu_structure():
             "name": "爱聚活动",
             "sub_button": [
                 {
-                    "type": "click",
-                    "name": "爱聚福利",
-                    "key": "benefit"
+                    "type": "view",
+                    "name": "爱聚推荐",
+                    "url": "http://www.aijunyc.com/zhs/article?post=266"
                 },
                 {
-                    "type": "click",
+                    "type": "view",
                     "name": "爱聚回顾",
-                    "key": "review"
+                    "url": "http://www.aijunyc.com/zhs/article?post=258"
                 }
             ]
         },
         {
-            "type": "click",
+            "type": "view",
             "name": "爱聚团队",
-            "key": "about_us"
+	    "url": "http://www.aijunyc.com"
         }
     ]
 	}	
