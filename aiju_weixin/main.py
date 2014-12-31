@@ -55,9 +55,10 @@ def weixin_msg():
             usr_msg = u"I am AIJU. You just sent: {0} to me.".format(usr_msg)
             return return_text_msg_to_wechat(app_id, usr_open_id, usr_msg)
         elif msg_type == 'image':
-            media_id = msg["MediaId"]
-            pic_url = msg["PicUrl"]
-            return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your picture!')
+			media_id = msg["MediaId"]
+			pic_url = msg["PicUrl"]
+			print pic_url
+			return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your picture!')
         elif msg_type == 'location':
             return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your location!')
         elif msg_type == 'video':
