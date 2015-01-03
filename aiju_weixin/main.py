@@ -3,7 +3,7 @@
 import hashlib, time
 import xml.etree.ElementTree as ET
 
-import wechatconst
+import wechatconst, aws
 
 from flask import Flask, request
 
@@ -57,7 +57,11 @@ def weixin_msg():
         elif msg_type == 'image':
 			media_id = msg["MediaId"]
 			pic_url = msg["PicUrl"]
+			
 			print pic_url
+			print aws.upload_usr_img_to_s3(pic_url,usr_open_id)
+	
+
 			return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your picture!')
         elif msg_type == 'location':
             return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your location!')
