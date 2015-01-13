@@ -10,6 +10,11 @@ import urllib2, StringIO, uuid, time
 #AWS_WX_BUCKET=config.get('aj_aws','aj_wx_bucket')
 AWS_WX_BUCKET = "wx-cloudfront-bucket"
 
+config = ConfigParser.ConfigParser()
+config.read('/home/ec2-user/aiju_weixin/config.cfg')
+
+AWS_WX_BUCKET=config.get('aj_aws','aj_wx_bucket')
+
 s3_conn = None
 
 def upload_usr_img_to_s3(img_url, usr_open_id):

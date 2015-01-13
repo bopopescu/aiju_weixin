@@ -25,14 +25,14 @@ def get_menu_structure():
             "name": "爱聚文章",
             "sub_button": [
                 {
-                    "type": "view",
+                    "type": "click",
                     "name": "爱聚厨房",
-                    "url": "http://www.aijunyc.com/zhs/article?post=268"
+                    "key": articleinfo.Article.Type.chef.name
                 },
                 {
-                    "type": "view",
+                    "type": "click",
                     "name": "爱聚书房",
-                    "url": "http://www.aijunyc.com/zhs/article?post=229"
+                    "key": articleinfo.Article.Type.book.name
                 }
             ]
         },
@@ -43,11 +43,6 @@ def get_menu_structure():
                     "type": "view",
                     "name": "爱聚推荐",
                     "url": "http://www.aijunyc.com/zhs/article?post=266"
-                },
-                {
-                    "type": "view",
-                    "name": "爱聚回顾",
-                    "url": "http://www.aijunyc.com/zhs/article?post=258"
                 }
             ]
         },
