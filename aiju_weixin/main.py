@@ -9,7 +9,6 @@ import ConfigParser
 import articleinfo
 import aws
 import caches
-import wechatconst
 
 app = Flask(__name__)
 
