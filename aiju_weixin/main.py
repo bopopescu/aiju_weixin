@@ -48,8 +48,6 @@ def weixin_msg():
 
         msg_type = msg["MsgType"]
 
-        msg_template = wechatconst.WECHAT_TEMPLATES[msg_type]
-        
         if msg_type == 'text':
             usr_msg =  msg["Content"]
             usr_msg = u"I am AIJU. You just sent: {0} to me.".format(usr_msg)
@@ -69,17 +67,6 @@ def weixin_msg():
         elif msg_type == 'event':
             return receive_event_msg(msg)
  
-def return_image_msg_to_wechat(app_id, usr_open_id, msg_template, pic_url, media_id):
-    resp_create_time = int(time.time())
-    return msg_template.format(
-        to_user=usr_open_id, 
-        from_user=app_id, 
-        pic_url=pic_url, 
-        media_id=media_id, 
-        timestamp=resp_create_time,
-        msg_id=123456,
-    )
-
 def return_text_msg_to_wechat(app_id, usr_open_id, resp_msg):
     resp_create_time = int(time.time())
     return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time, resp_msg.encode('utf8'))
