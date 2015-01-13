@@ -28,7 +28,7 @@ def get_menu_structure():
                 {
                     "type": "click",
                     "name": "爱聚厨房",
-		    "key": articleinfo.Article.Type.chefmale.name
+		    "key": articleinfo.Article.Type.chef.name
                 },
                 {
                     "type": "click",

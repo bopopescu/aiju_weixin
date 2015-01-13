@@ -87,7 +87,7 @@ def return_text_msg_to_wechat(app_id, usr_open_id, resp_msg):
 def receive_event_msg(msg):
     if msg["Event"] == 'CLICK':
       if msg["EventKey"] == u'爱聚厨房':
-          return articles.return_news_xml(articleinfo.Article.Type.chefmale.value, app_id, usr_open_id)
+          return articles.return_news_xml(articleinfo.Article.Type.chef.value, app_id, usr_open_id)
       elif msg["EventKey"] == u'爱聚书房':
           return articles.return_news_xml(articleinfo.Article.Type.book.value, app_id, usr_open_id)
 
