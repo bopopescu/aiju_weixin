@@ -3,6 +3,7 @@
 import xml.etree.ElementTree as ET
 import flufl.enum as enum
 
+import caches
 
 class Article():
     class Type(enum.Enum):
