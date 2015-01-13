@@ -1,8 +1,0 @@
-import xml.etree.ElementTree as ET
-import articleinfo
-
-def get_recent_articles(article_type):
-    return caches.articles[article_type][:10]
-
-def create_news_xml():
-    pass
