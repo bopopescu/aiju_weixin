@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import xml.etree.ElementTree as ET
-import enum
+import flufl.enum as enum
 
+import caches
 
 class Article():
     class Type(enum.Enum):
