@@ -78,6 +78,24 @@ LINK_TEMPLATE = """
                    <MsgId>{msg_id}</MsgId>
                    </xml>
                    """
+NEWS_TEMPLATE = """
+              <xml>
+              <ToUserName><![CDATA{toUser}]></ToUserName>
+              <FromUserName><![CDATA{fromUser}]></FromUserName>
+              <CreateTime>{timestamp}</CreateTime>
+              <MsgType><![CDATA[news]]></MsgType>
+              <ArticleCount>{length}</ArticleCount>
+              <Articles>{news}</Articles>
+              </xml> 
+              """
+NEWS_ITEM_TEMPLATE = """
+              <item>
+              <Title><![CDATA{title1}]></Title> 
+              <Description><![CDATA{description}]></Description>
+              <PicUrl><![CDATA{picurl}]></PicUrl>
+              <Url><![CDATA{url}]></Url>
+              </item>
+              """
 
 WECHAT_TEMPLATES = {
 'text': TEXT_TEMPLATE,

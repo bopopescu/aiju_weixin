@@ -43,21 +43,36 @@ def weixin_access_verify():
 # reciever msgs from weixin server
 @app.route(APP_ROOT, methods=['POST'])
 def weixin_msg():
-		
-	if verification(request):
-		data = request.data
-		msg = parse_msg(data)
-		
-		usr_msg =  msg["Content"]
-		usr_open_id = msg["FromUserName"]
-		app_id = msg["ToUserName"]
+    print "inside weixin_msg"
+    if verification(request):
+        data = request.data
+        msg = parse_msg(data)
 
-		print usr_msg
+        usr_open_id = msg["FromUserName"]
+        app_id = msg["ToUserName"]
 
-		return return_text_msg_to_wechat(app_id, usr_open_id, usr_msg)
-    
-	print "msg verification fail"
-	return "nothing"
+        msg_type = msg["MsgType"]
+
+        msg_template = wechatconst.WECHAT_TEMPLATES[msg_type]
+        
+        if msg_type == 'text':
+            usr_msg =  msg["Content"]
+            usr_msg = u"I am AIJU. You just sent: {0} to me.".format(usr_msg)
+            return return_text_msg_to_wechat(app_id, usr_open_id, usr_msg)
+        elif msg_type == 'image':
+            media_id = msg["MediaId"]
+            pic_url = msg["PicUrl"]
+            return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your picture!')
+        elif msg_type == 'location':
+            return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your location!')
+        elif msg_type == 'video':
+            return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your video!')
+        elif msg_type == 'voice':
+            return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your voice!')
+        elif msg_type == 'link':
+            return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your link!')
+        elif msg_type == 'event':
+            return receive_event_msg(msg)
  
 
 def return_image_msg_to_wechat(app_id, usr_open_id, msg_template, pic_url, media_id):
@@ -70,12 +85,6 @@ def return_image_msg_to_wechat(app_id, usr_open_id, msg_template, pic_url, media
         timestamp=resp_create_time,
         msg_id=123456,
     )
-
-def return_text_msg_to_wechat(app_id, usr_open_id, resp_msg):
-    resp_create_time = int(time.time())
-    return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time, resp_msg.encode('utf8'))
-
-
 
 def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
 	resp_create_time = int(time.time())
@@ -91,7 +100,6 @@ def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
 	return ""
 
 
-
 def get_access_token():
 	global access_token, access_token_create_time
 
@@ -103,6 +111,39 @@ def get_access_token():
 		
 	return access_token
 
+def receive_event_msg(msg):
+    if msg["Event"] == 'CLICK':
+      if msg["EventKey"] == u'爱聚厨房':
+          return articles.return_news_xml(articleinfo.Article.Type.chefmale.value, app_id, usr_open_id)
+      elif msg["EventKey"] == u'爱聚书房':
+          return articles.return_news_xml(articleinfo.Article.Type.book.value, app_id, usr_open_id)
+
+def parse_msg(rawmsgstr):
+    root = ET.fromstring(rawmsgstr)
+    msg = {}
+    for child in root:
+        msg[child.tag] = child.text
+    return msg
+
+def verification(req):
+    print "inside verificantion"
+    signature = req.args.get('signature')
+    timestamp = req.args.get('timestamp')
+    nonce = req.args.get('nonce')
+
+    if signature is None or timestamp is None or nonce is None:
+        return False
+
+    token = APP_TOKEN
+    tmplist = [token, timestamp, nonce]
+    tmplist.sort()
+    tmpstr = ''.join(tmplist)
+    hashstr = hashlib.sha1(tmpstr).hexdigest()
+
+    if hashstr == signature:
+        return True
+    return False
 
 if __name__ == "__main__":
+    articleinfo.load()
     app.run(debug=True, host="0.0.0.0", port=80)

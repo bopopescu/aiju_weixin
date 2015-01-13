@@ -7,6 +7,7 @@ import sys
 import urllib
 import urllib2
 
+import articleinfo
 import main
 
 APP_ID = 'wx92ab0673ca2fcc80'
@@ -22,7 +23,7 @@ def get_menu_structure():
 	valid_menu = {
     "button": [
         {
-            "name": "爱聚文章",
+            "name": "爱聚专题",
             "sub_button": [
                 {
                     "type": "click",
@@ -42,7 +43,7 @@ def get_menu_structure():
                 {
                     "type": "view",
                     "name": "爱聚推荐",
-                    "url": "http://www.aijunyc.com/zhs/article?post=266"
+                    "url": "http://www.aijunyc.com/zhs/article?post=285"
                 }
             ]
         },
