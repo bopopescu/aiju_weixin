@@ -25,8 +25,8 @@ def create_news_xml(articles):
         )
         article_items.append(item)
     wechatconst.NEWS_TEMPLATE.format(
-        to_user=app_id,
-        from_usr=usr_open_id,
+        to_user=usr_open_id,
+        from_usr=app_id,
         timestamp=int(time.time()),
         length=article_length,
         news=''.join(article_items)

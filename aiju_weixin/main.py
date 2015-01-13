@@ -77,14 +77,7 @@ def weixin_msg():
 
 def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
 	resp_create_time = int(time.time())
-	#resp_msg = u"I am AIJU. You just sent: {0} to me.".format(usr_msg)
-
-	resp_msg = json.loads(get_usr_info(usr_open_id, get_access_token()))
-
-	print resp_msg['province'].encode('utf-8')
-	print get_usr_info(usr_open_id, get_access_token())
-
-	#return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time,get_usr_info(usr_open_id, get_access_token()).encode("utf8"))
+	return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time,r_msg.encode('utf-8'))
 
 	return ""
 
