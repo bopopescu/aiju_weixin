@@ -7,6 +7,7 @@ import sys
 import urllib
 import urllib2
 
+import articleinfo
 import main
 
 APP_ID = 'wx92ab0673ca2fcc80'
@@ -22,17 +23,17 @@ def get_menu_structure():
 	valid_menu = {
     "button": [
         {
-            "name": "爱聚文章",
+            "name": "爱聚专题",
             "sub_button": [
                 {
-                    "type": "view",
+                    "type": "click",
                     "name": "爱聚厨房",
-                    "url": "http://www.aijunyc.com/zhs/article?post=268"
+		    "key": articleinfo.Article.Type.chefmale.name
                 },
                 {
-                    "type": "view",
+                    "type": "click",
                     "name": "爱聚书房",
-                    "url": "http://www.aijunyc.com/zhs/article?post=229"
+		    "key": articleinfo.Article.Type.book.name
                 }
             ]
         },
@@ -42,12 +43,7 @@ def get_menu_structure():
                 {
                     "type": "view",
                     "name": "爱聚推荐",
-                    "url": "http://www.aijunyc.com/zhs/article?post=266"
-                },
-                {
-                    "type": "view",
-                    "name": "爱聚回顾",
-                    "url": "http://www.aijunyc.com/zhs/article?post=258"
+                    "url": "http://www.aijunyc.com/zhs/article?post=285"
                 }
             ]
         },

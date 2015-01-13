@@ -1,0 +1,31 @@
+import xml.etree.ElementTree as ET
+import enum
+
+
+class Article():
+    class Type(enum.Enum):
+        chefmale = 10
+        cheffemale = 11
+
+        book = 20
+
+        clubbing = 30
+        networking = 31
+
+    def __init__(self, title, description, url):
+        self.title = title
+        self.description = description
+        self.url = url
+
+    def __repr__(self):
+        return 'Article({0})'.format(self.title)
+
+
+CHEFMALE_LIST = [
+    (u'华尔街的厨子--Leo Hu', '', 'http://mp.weixin.qq.com/s?__biz=MzA4MzU0NDIxMg==&mid=201474488&idx=1&sn=d60556ccfdbd58310e35fd645d8de5e1#rd'),
+    (u'法式红酒炖牛肉', '', 'http://mp.weixin.qq.com/s?__biz=MzA4MzU0NDIxMg==&mid=201050395&idx=1&sn=bc857a7228ca54df0fa05fc28a9a34d0#rd')
+1]
+
+def load():
+    for r in CHEFMALE_LIST:
+        caches.articles[Article.Type.chefmale.value].append(Article(r[0], r[1], r[2]))

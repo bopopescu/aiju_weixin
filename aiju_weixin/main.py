@@ -66,6 +66,8 @@ def weixin_msg():
             return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your voice!')
         elif msg_type == 'link':
             return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your link!')
+        elif msg_type == 'event':
+            return receive_event_msg(msg)
  
 def return_image_msg_to_wechat(app_id, usr_open_id, msg_template, pic_url, media_id):
     resp_create_time = int(time.time())
@@ -81,6 +83,15 @@ def return_image_msg_to_wechat(app_id, usr_open_id, msg_template, pic_url, media
 def return_text_msg_to_wechat(app_id, usr_open_id, resp_msg):
     resp_create_time = int(time.time())
     return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time, resp_msg.encode('utf8'))
+
+def receive_event_msg(msg):
+    if msg["Event"] == 'CLICK':
+      if msg["EventKey"] == u'爱聚厨房':
+          return articles.return_news_xml(articleinfo.Article.Type.chefmale.value, app_id, usr_open_id)
+      elif msg["EventKey"] == u'爱聚书房':
+          return articles.return_news_xml(articleinfo.Article.Type.book.value, app_id, usr_open_id)
+
+    
 
 def parse_msg(rawmsgstr):
     root = ET.fromstring(rawmsgstr)
@@ -109,4 +120,5 @@ def verification(req):
     return False
 
 if __name__ == "__main__":
+    articleinfo.load()
     app.run(debug=True, host="0.0.0.0", port=80)
