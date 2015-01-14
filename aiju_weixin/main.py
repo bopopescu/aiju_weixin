@@ -72,9 +72,7 @@ def weixin_msg():
         elif msg_type == 'link':
             return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your link!')
         elif msg_type == 'event':
-            print 'event'
-            return receive_event_msg(msg)
-        print 'before return'
+            return receive_event_msg(msg, app_id, usr_open_id)
     return
 
 def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
@@ -99,15 +97,14 @@ def get_access_token():
 		
 	return access_token
 
-def receive_event_msg(msg):
+def receive_event_msg(msg, app_id, usr_open_id):
     if msg["Event"] == 'CLICK':
-      print(msg["EventKey"])
-      if msg["EventKey"] == u'爱聚厨房':
-          return articles.return_news_xml(articleinfo.Article.Type.chef.value, app_id, usr_open_id)
-      elif msg["EventKey"] == u'爱聚书房':
-          return articles.return_news_xml(articleinfo.Article.Type.book.value, app_id, usr_open_id)
-      else:
-          print 'non click events'
+        if msg["EventKey"] == articleinfo.Article.Type.chef.name:
+            return articles.return_news_xml(articleinfo.Article.Type.chef.value, app_id, usr_open_id)
+        elif msg["EventKey"] == articleinfo.Article.Type.book.name:
+            return articles.return_news_xml(articleinfo.Article.Type.book.value, app_id, usr_open_id)
+    elif msg["Event"] == 'subscribe':
+        return return_text_msg_to_wechat(app_id, usr_open_id, u'感谢关注爱聚!')
     return
 
 def parse_msg(rawmsgstr):
