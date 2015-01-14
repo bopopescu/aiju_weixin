@@ -73,18 +73,17 @@ def weixin_msg():
             return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your link!')
         elif msg_type == 'event':
             return receive_event_msg(msg)
- 
+    return
 
 def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
 	resp_create_time = int(time.time())
-	#resp_msg = u"I am AIJU. You just sent: {0} to me.".format(usr_msg)
 
 	resp_msg = json.loads(get_usr_info(usr_open_id, get_access_token()))
 
 	print resp_msg['province'].encode('utf-8')
 	print get_usr_info(usr_open_id, get_access_token())
 
-	return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time, usr_msg.encode("utf8"))
+	return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time,r_msg.encode('utf-8'))
 
 
 def get_access_token():
@@ -104,6 +103,7 @@ def receive_event_msg(msg):
           return articles.return_news_xml(articleinfo.Article.Type.chef.value, app_id, usr_open_id)
       elif msg["EventKey"] == u'爱聚书房':
           return articles.return_news_xml(articleinfo.Article.Type.book.value, app_id, usr_open_id)
+    return
 
 def parse_msg(rawmsgstr):
     root = ET.fromstring(rawmsgstr)
