@@ -73,6 +73,7 @@ def weixin_msg():
             return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your link!')
         elif msg_type == 'event':
             return receive_event_msg(msg)
+        print 'before return'
     return
 
 def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
