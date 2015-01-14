@@ -98,7 +98,7 @@ def get_access_token():
 
 def receive_event_msg(msg, app_id, usr_open_id):
     if msg["Event"] == 'CLICK':
-        print(msg["EventKey"])
+        print msg["EventKey"]
         if msg["EventKey"] == articleinfo.Article.Type.chef.name:
             return articles.return_news_xml(articleinfo.Article.Type.chef.value, app_id, usr_open_id)
         elif msg["EventKey"] == articleinfo.Article.Type.book.name:
