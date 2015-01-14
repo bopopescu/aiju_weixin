@@ -35,10 +35,10 @@ RETURN_TEXT_RESPONSE = """
 @app.route(APP_ROOT, methods=['GET'])
 def weixin_access_verify():
     echostr = request.args.get('echostr')
-    if verification(request) and echostr is not None:
+    if verification(request):
         print " Verification success!"
         return echostr
-	print "Verification fail :("
+    print "Verification fail :("
     return 'access verification fail'
 
 
