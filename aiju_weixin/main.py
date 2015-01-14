@@ -99,12 +99,13 @@ def get_access_token():
 
 def receive_event_msg(msg, app_id, usr_open_id):
     if msg["Event"] == 'CLICK':
+        print(msg["EventKey"])
         if msg["EventKey"] == articleinfo.Article.Type.chef.name:
             return articles.return_news_xml(articleinfo.Article.Type.chef.value, app_id, usr_open_id)
         elif msg["EventKey"] == articleinfo.Article.Type.book.name:
             return articles.return_news_xml(articleinfo.Article.Type.book.value, app_id, usr_open_id)
     elif msg["Event"] == 'subscribe':
-        return return_text_msg_to_wechat(app_id, usr_open_id, u'感谢关注爱聚!')
+        return return_text_msg_to_wechat(app_id, usr_open_id, u'感谢关注爱聚!'.encode('utf-8'))
     return
 
 def parse_msg(rawmsgstr):
