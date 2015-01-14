@@ -73,18 +73,17 @@ def weixin_msg():
             return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your link!')
         elif msg_type == 'event':
             return receive_event_msg(msg, app_id, usr_open_id)
-    return
 
 def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
 	resp_create_time = int(time.time())
 
-	resp_msg = json.loads(get_usr_info(usr_open_id, get_access_token()))
+#	resp_msg = json.loads(get_usr_info(usr_open_id, get_access_token()))
+#
+#	print resp_msg['province'].encode('utf-8')
+#	print get_usr_info(usr_open_id, get_access_token())
 
-	print resp_msg['province'].encode('utf-8')
-	print get_usr_info(usr_open_id, get_access_token())
-
-	return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time,r_msg.encode('utf-8'))
-
+#	return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time,r_msg.encode('utf-8'))
+	return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time, usr_msg.encode('utf-8'))
 
 def get_access_token():
 	global access_token, access_token_create_time
