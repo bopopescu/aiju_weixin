@@ -13,7 +13,7 @@ def return_news_xml(article_type, app_id, usr_open_id):
 def get_recent_articles(article_type):
     return caches.articles[article_type][:10]
 
-def create_news_xml(articles):
+def create_news_xml(articles, app_id, usr_open_id):
     article_items = []
     article_length = len(articles)
     for a in articles:
