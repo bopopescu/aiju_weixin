@@ -7,6 +7,7 @@ import time
 import ConfigParser
 
 import articleinfo
+import articles
 import aws
 import caches
 
@@ -34,6 +35,7 @@ RETURN_TEXT_RESPONSE = """
 # weixin server will send GET request first to verify this backend
 @app.route(APP_ROOT, methods=['GET'])
 def weixin_access_verify():
+    print "inside weixin_access_verify"
     echostr = request.args.get('echostr')
     if verification(request):
         print " Verification success!"

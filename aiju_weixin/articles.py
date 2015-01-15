@@ -4,6 +4,7 @@ import time
 import xml.etree.ElementTree as ET
 
 import articleinfo
+import caches
 import wechatconst
 
 def return_news_xml(article_type, app_id, usr_open_id):
