@@ -58,7 +58,7 @@ def get_menu_structure():
     return valid_menu
 
 def get_token():
-    print(TOKEN_URL)
+    print TOKEN_URL
     f = urllib2.urlopen(TOKEN_URL)
     data = f.read()
     data = json.loads(data)
@@ -93,9 +93,9 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--delete', action='store_true', help='delete menu')
 
     args = parser.parse_args()
-
     if args.create:
         token = get_token()
+        print token
         create_menu(token)
     if args.get:
         token = get_token()
