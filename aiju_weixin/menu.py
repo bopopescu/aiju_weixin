@@ -26,14 +26,14 @@ def get_menu_structure():
             "name": "爱聚专题",
             "sub_button": [
                 {
-                    "type": "view",
+                    "type": "CLICK",
                     "name": "爱聚厨房",
-                    "url": "http://www.aijunyc.com/zhs/article?post=289"
+                    "key": articleinfo.Article.Type.chef.name
                 },
                 {
-                    "type": "view",
+                    "type": "CLICK",
                     "name": "爱聚书房",
-                    "url": "http://www.aijunyc.com/zhs/article?post=229"
+                    "key": articleinfo.Article.Type.book.name
                 }
             ]
         },
@@ -50,45 +50,11 @@ def get_menu_structure():
         {
             "type": "view",
             "name": "爱聚团队",
-	    "url": "http://www.aijunyc.com"
+     	    "url": "http://www.aijunyc.com"
         }
     ]
     }	
-#    valid_menu = {
-#    "button": [
-#        {
-#            "name": "爱聚专题",
-#            "sub_button": [
-#                {
-#                    "type": "CLICK",
-#                    "name": "爱聚厨房",
-#                    "key": articleinfo.Article.Type.chef.name
-#                },
-#                {
-#                    "type": "CLICK",
-#                    "name": "爱聚书房",
-#                    "key": articleinfo.Article.Type.book.name
-#                }
-#            ]
-#        },
-#        {
-#            "name": "爱聚活动",
-#            "sub_button": [
-#                {
-#                    "type": "view",
-#                    "name": "爱聚推荐",
-#                    "url": "http://www.aijunyc.com/zhs/article?post=285"
-#                }
-#            ]
-#        },
-#        {
-#            "type": "view",
-#            "name": "爱聚团队",
-#	    "url": "http://www.aijunyc.com"
-#        }
-#    ]
-#    }	
-#
+
     return valid_menu
 
 def get_token():
