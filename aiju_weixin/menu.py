@@ -96,7 +96,7 @@ def get_token():
     f = urllib2.urlopen(TOKEN_URL)
     data = f.read()
     data = json.loads(data)
-    access_token = data['access_token']
+    access_token = data["access_token"]
     return access_token
 
 def create_menu(token):

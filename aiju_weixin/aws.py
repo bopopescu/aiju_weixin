@@ -25,7 +25,7 @@ def upload_usr_img_to_s3(img_url, usr_open_id):
 	
 	try:
 		if s3_conn is None:
-			s3_conn = S3Connection()
+			s3_conn = S3Connection("AKIAIK35HZG4AYXYAXUQ","lPd9iNIcHUGFVhTNXjaFvpZdSuUE/llFLbr4WvhH")
 	
 		# retrieve img
 		img_obj = urllib2.urlopen(img_url)
