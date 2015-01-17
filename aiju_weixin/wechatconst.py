@@ -78,7 +78,7 @@ LINK_TEMPLATE = """
                    <MsgId>{msg_id}</MsgId>
                    </xml>
                    """
-NEWS_TEMPLATE = """
+NEWS_TEMPLATE = u"""
               <xml>
               <ToUserName><![CDATA{to_user}]></ToUserName>
               <FromUserName><![CDATA{from_user}]></FromUserName>
@@ -88,7 +88,7 @@ NEWS_TEMPLATE = """
               <Articles>{news}</Articles>
               </xml> 
               """
-NEWS_ITEM_TEMPLATE = """
+NEWS_ITEM_TEMPLATE = u"""
               <item>
               <Title><![CDATA{title}]></Title> 
               <Description><![CDATA{description}]></Description>
