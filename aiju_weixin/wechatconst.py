@@ -90,7 +90,7 @@ NEWS_TEMPLATE = """
               """
 NEWS_ITEM_TEMPLATE = """
               <item>
-              <Title><![CDATA{title1}]></Title> 
+              <Title><![CDATA{title}]></Title> 
               <Description><![CDATA{description}]></Description>
               <PicUrl><![CDATA{picurl}]></PicUrl>
               <Url><![CDATA{url}]></Url>
