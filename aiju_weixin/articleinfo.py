@@ -45,4 +45,4 @@ def load():
     for r in BOOK_LIST:
         caches.articles[Article.Type.book.value].append(Article(r[0], r[1], r[2], r[3]))
     for r in EVENT_LIST:
-        caches.articles[Article.Type.book.value].append(Article(r[0], r[1], r[2], r[3]))
+        caches.articles[Article.Type.event.value].append(Article(r[0], r[1], r[2], r[3]))
