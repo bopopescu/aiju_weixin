@@ -80,8 +80,8 @@ LINK_TEMPLATE = """
                    """
 NEWS_TEMPLATE = u"""
               <xml>
-              <ToUserName><![CDATA{to_user}]></ToUserName>
-              <FromUserName><![CDATA{from_user}]></FromUserName>
+              <ToUserName><![CDATA[{to_user}]]></ToUserName>
+              <FromUserName><![CDATA[{from_user}]]></FromUserName>
               <CreateTime>{timestamp}</CreateTime>
               <MsgType><![CDATA[news]]></MsgType>
               <ArticleCount>{length}</ArticleCount>
@@ -90,10 +90,10 @@ NEWS_TEMPLATE = u"""
               """
 NEWS_ITEM_TEMPLATE = u"""
               <item>
-              <Title><![CDATA{title}]></Title> 
-              <Description><![CDATA{description}]></Description>
-              <PicUrl><![CDATA{picurl}]></PicUrl>
-              <Url><![CDATA{url}]></Url>
+              <Title><![CDATA[{title}]]></Title> 
+              <Description><![CDATA[{description}]]></Description>
+              <PicUrl><![CDATA[{picurl}]]></PicUrl>
+              <Url><![CDATA[{url}]]></Url>
               </item>
               """
 
