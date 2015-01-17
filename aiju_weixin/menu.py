@@ -41,9 +41,9 @@ def get_menu_structure():
             "name": "爱聚活动",
             "sub_button": [
                 {
-                    "type": "view",
+                    "type": "click",
                     "name": "爱聚推荐",
-                    "url": "http://www.aijunyc.com/zhs/article?post=285"
+                    "url": articleinfo.Article.Type.event.name
                 }
             ]
         },
