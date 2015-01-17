@@ -19,10 +19,10 @@ def create_news_xml(articles, app_id, usr_open_id):
     article_length = len(articles)
     for a in articles:
         item = wechatconst.NEWS_ITEM_TEMPLATE.format(
-            title=a[0],
-            description=a[1],
-            picurl=a[2],
-            url=a[3]
+            title=a.title,
+            description=a.description,
+            picurl=a.pic_url,
+            url=a.url
         )
         article_items.append(item)
     news = wechatconst.NEWS_TEMPLATE.format(

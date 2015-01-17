@@ -13,9 +13,10 @@ class Article():
         clubbing = 30
         networking = 31
 
-    def __init__(self, title, description, url):
+    def __init__(self, title, description, pic_url, url):
         self.title = title
         self.description = description
+        self.pic_url = pic_url
         self.url = url
 
     def __repr__(self):
@@ -31,4 +32,4 @@ CHEF_LIST = [
 
 def load():
     for r in CHEF_LIST:
-        caches.articles[Article.Type.chef.value].append(Article(r[0], r[1], r[2]))
+        caches.articles[Article.Type.chef.value].append(Article(r[0], r[1], r[2], r[3]))
