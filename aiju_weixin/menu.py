@@ -26,12 +26,12 @@ def get_menu_structure():
             "name": "爱聚专题",
             "sub_button": [
                 {
-                    "type": "CLICK",
+                    "type": "click",
                     "name": "爱聚厨房",
                     "key": articleinfo.Article.Type.chef.name
                 },
                 {
-                    "type": "CLICK",
+                    "type": "click",
                     "name": "爱聚书房",
                     "key": articleinfo.Article.Type.book.name
                 }

@@ -80,8 +80,8 @@ LINK_TEMPLATE = """
                    """
 NEWS_TEMPLATE = """
               <xml>
-              <ToUserName><![CDATA{toUser}]></ToUserName>
-              <FromUserName><![CDATA{fromUser}]></FromUserName>
+              <ToUserName><![CDATA{to_user}]></ToUserName>
+              <FromUserName><![CDATA{from_user}]></FromUserName>
               <CreateTime>{timestamp}</CreateTime>
               <MsgType><![CDATA[news]]></MsgType>
               <ArticleCount>{length}</ArticleCount>
