@@ -43,7 +43,7 @@ def get_menu_structure():
                 {
                     "type": "click",
                     "name": "爱聚推荐",
-                    "url": articleinfo.Article.Type.event.name
+                    "key": articleinfo.Article.Type.event.name
                 }
             ]
         },
