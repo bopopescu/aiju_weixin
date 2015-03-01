@@ -14,7 +14,7 @@ APP_ID = config.get('aj_wx_public','app_id')
 
 # 验证消息真实性
 def verification(req):
-	print "inside verificantion"
+	print "inside verification"
 	signature = req.args.get('signature')
 	timestamp = req.args.get('timestamp')
 	nonce = req.args.get('nonce')
@@ -63,10 +63,18 @@ def get_usr_info(usr_open_id, access_token):
 	request_url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}&lang=zh_CN".format(access_token, usr_open_id)
 	r = requests.get(request_url, headers={'Connection':'close'})
 	return r.text
-	
+
 def parse_msg(rawmsgstr):
 	root = ET.fromstring(rawmsgstr)
 	msg = {}
-	for child in root:
+	for child in root: 
 		msg[child.tag] = child.text
+
+		if list(child) != []:
+			desc_dict = {}
+			for desc in child:
+				desc_dict[desc.tag] = desc.text
+
+			msg[child.tag] = desc_dict
+
 	return msg

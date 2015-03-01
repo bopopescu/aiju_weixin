@@ -1,25 +1,37 @@
 # -*- coding: utf-8 -*-
 
+from flask.ext.sqlalchemy import SQLAlchemy
 from flask import Flask, request
 from weixin import *
+from external_tools import *
+
 import json
 import time
 import ConfigParser
 
 import articleinfo
 import articles
-import aws
 import caches
-
-app = Flask(__name__)
+import aws
 
 config = ConfigParser.ConfigParser()
 config.read('/home/ec2-user/aiju_weixin/config.cfg')
 
+# globals
 APP_ROOT = "/"
 APP_TOKEN = config.get('aj_wx_public','app_token')
+AJ_DB_HOSTNAME= config.get('aj_db','website_mysql_host')
+
 access_token = None
 access_token_create_time = 0
+
+app = Flask(__name__)
+
+# set up bindings
+app.config['SQLALCHEMY_DATABASE_URI'] = AJ_DB_HOSTNAME
+
+# create the database object
+DB = SQLAlchemy(app)
 
 RETURN_TEXT_RESPONSE = """
                      <xml>
@@ -35,7 +47,6 @@ RETURN_TEXT_RESPONSE = """
 # weixin server will send GET request first to verify this backend
 @app.route(APP_ROOT, methods=['GET'])
 def weixin_access_verify():
-    print "inside weixin_access_verify"
     echostr = request.args.get('echostr')
     if verification(request):
         print " Verification success!"
@@ -47,7 +58,6 @@ def weixin_access_verify():
 # reciever msgs from weixin server
 @app.route(APP_ROOT, methods=['POST'])
 def weixin_msg():
-    print "inside weixin_msg"
     if verification(request):
         data = request.data
         msg = parse_msg(data)
@@ -56,17 +66,54 @@ def weixin_msg():
         app_id = msg["ToUserName"]
 
         msg_type = msg["MsgType"]
-
+        
         if msg_type == 'text':
             usr_msg =  msg["Content"]
+            u = msg["Content"].encode('utf-8')
+
             usr_msg = u"I am AIJU. You just sent: {0} to me.".format(usr_msg)
             return return_text_msg_to_wechat(app_id, usr_open_id, usr_msg)
+       
         elif msg_type == 'image':
             media_id = msg["MediaId"]
-            pic_url = msg["PicUrl"]
-            return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your picture!')
+            pic_url = msg["PicUrl"]            
+
+            user_info = get_usr_info(usr_open_id, get_access_token())
+
+            uploaded_img_url = aws.upload_usr_img_to_s3(pic_url, usr_open_id)
+
+            return return_text_msg_to_wechat(app_id, usr_open_id, u"谢谢你分享你的照片～照片的连锁是：" + "\n" +  uploaded_img_url)
+       
         elif msg_type == 'location':
-            return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your location!')
+
+            results = DB.engine.execute('select * from hunyin.post where genre = 6 and EventDate > date_add(curdate(), INTERVAL -2 day)')
+            nearby_events = []
+            for result in results:
+                
+                url = 'http://www.aijunyc.com/zhs/article?post=' + str(result['PostID'])
+                pic_url = result['CoverImage']
+                title = result['title']
+                description = result['shortdesc']
+                geolocation = result['GeoLocation']
+                
+                if ',' in geolocation:   
+                    locationX = float(str(geolocation.split(',')[0]))
+                    locationY = float(str(geolocation.split(',')[1]))
+                    distance = haversine(locationX, locationY, float(str(msg['Location_X'])), float(str(msg['Location_Y'])))
+                    title = u'🚶 离你: ' + str(round(distance,1)) + u"km🚶 " + title[11:]
+
+                nearby_events.append(articleinfo.Article(title,description,pic_url,url))
+
+            if len(nearby_events) == 0:
+                url = 'http://www.aijunyc.com/zhs/index'
+                pic_url = 'https://s3.amazonaws.com/wx-cloudfront-bucket/sorry3'
+                title = u'我们竟然暂时没有独家活动(ಥ﹏ಥ)'
+                description = u'不妨到我们的官网哪看看其他和我们合作的平台的活动吧'
+                nearby_events.append(articleinfo.Article(title,description,pic_url,url))
+                return articles.create_news_xml(nearby_events[:1], app_id, usr_open_id)
+
+            return articles.create_news_xml(nearby_events[:10], app_id, usr_open_id)
+
         elif msg_type == 'video':
             return return_text_msg_to_wechat(app_id, usr_open_id, 'Thanks for sharing your video!')
         elif msg_type == 'voice':
@@ -78,13 +125,6 @@ def weixin_msg():
 
 def return_text_msg_to_wechat(app_id, usr_open_id, usr_msg):
 	resp_create_time = int(time.time())
-
-#	resp_msg = json.loads(get_usr_info(usr_open_id, get_access_token()))
-#
-#	print resp_msg['province'].encode('utf-8')
-#	print get_usr_info(usr_open_id, get_access_token())
-
-#	return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time,r_msg.encode('utf-8'))
 	return RETURN_TEXT_RESPONSE.format(usr_open_id,app_id,resp_create_time, usr_msg.encode('utf-8'))
 
 def get_access_token():
@@ -100,42 +140,18 @@ def get_access_token():
 
 def receive_event_msg(msg, app_id, usr_open_id):
     if msg["Event"] == 'CLICK':
-        print msg["EventKey"]
         if msg["EventKey"] == articleinfo.Article.Type.chef.name:
             return articles.return_news_xml(articleinfo.Article.Type.chef.value, app_id, usr_open_id)
         elif msg["EventKey"] == articleinfo.Article.Type.book.name:
             return articles.return_news_xml(articleinfo.Article.Type.book.value, app_id, usr_open_id)
         elif msg["EventKey"] == articleinfo.Article.Type.event.name:
             return articles.return_news_xml(articleinfo.Article.Type.event.value, app_id, usr_open_id)
+    elif msg["Event"] == "location_select":
+        return ""
     elif msg["Event"] == 'subscribe':
         return return_text_msg_to_wechat(app_id, usr_open_id, u'感谢关注爱聚!')
-    return
+    return ""
 
-def parse_msg(rawmsgstr):
-    root = ET.fromstring(rawmsgstr)
-    msg = {}
-    for child in root:
-        msg[child.tag] = child.text
-    return msg
-
-def verification(req):
-    print "inside verificantion"
-    signature = req.args.get('signature')
-    timestamp = req.args.get('timestamp')
-    nonce = req.args.get('nonce')
-
-    if signature is None or timestamp is None or nonce is None:
-        return False
-
-    token = APP_TOKEN
-    tmplist = [token, timestamp, nonce]
-    tmplist.sort()
-    tmpstr = ''.join(tmplist)
-    hashstr = hashlib.sha1(tmpstr).hexdigest()
-
-    if hashstr == signature:
-        return True
-    return False
 
 if __name__ == "__main__":
     articleinfo.load()

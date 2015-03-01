@@ -15,14 +15,17 @@ def get_recent_articles(article_type):
     return caches.articles[article_type][:10]
 
 def create_news_xml(articles, app_id, usr_open_id):
+
     article_items = []
     article_length = len(articles)
+
     for a in articles:
+
         item = wechatconst.NEWS_ITEM_TEMPLATE.format(
             title=a.title,
             description=a.description,
-            picurl=a.pic_url,
-            url=a.url
+            url=a.url,
+            picurl=a.pic_url
         )
         article_items.append(item)
     news = wechatconst.NEWS_TEMPLATE.format(

@@ -37,8 +37,9 @@ def upload_usr_img_to_s3(img_url, usr_open_id):
 		k = bucket.new_key(new_obj_key)
 		size = k.set_contents_from_file(fp, headers={"Content-Type":"image/png"})
 		k.set_acl('public-read')
+		url = k.generate_url(expires_in=0, query_auth=False)
 		
-		return size
+		return url
 	
 	except Exception, e:
 		print e

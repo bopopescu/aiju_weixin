@@ -29,11 +29,6 @@ def get_menu_structure():
                     "type": "click",
                     "name": "爱聚厨房",
                     "key": articleinfo.Article.Type.chef.name
-                },
-                {
-                    "type": "click",
-                    "name": "爱聚书房",
-                    "key": articleinfo.Article.Type.book.name
                 }
             ]
         },
@@ -48,12 +43,22 @@ def get_menu_structure():
             ]
         },
         {
-            "type": "view",
-            "name": "爱聚团队",
-     	    "url": "http://www.aijunyc.com"
+            "name": "我的爱聚",
+     	    "sub_button": [
+				{
+					"type":"view",
+					"name":"订阅电邮",
+					"url": "http://eepurl.com/R09df"
+				},
+				{
+					"type":"location_select",
+					"name":"独家活动",
+					"key":"nearby_event"
+				}
+			]
         }
     ]
-    }	
+   	}	
 
     return valid_menu
 
